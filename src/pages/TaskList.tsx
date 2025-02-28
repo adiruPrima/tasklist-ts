@@ -29,6 +29,10 @@ function TaskList() {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   }
 
+  function deleteAll() {
+    setTasks([]);
+  }
+
   function editTask(id: number, title: string) {
     if (editMode) {
       setEditMode(false);
@@ -53,6 +57,23 @@ function TaskList() {
     );
   }
 
+  function isAllMarked(): boolean {
+    const unmarked = tasks.find((task) => !task.isMarked);
+    // if unmarked task found, isAllMarked = false
+    return unmarked ? false : true;
+  }
+
+  function markAllToggle() {
+    // unmark all
+    if (isAllMarked()) {
+      setTasks((prev) => prev.map((task) => ({ ...task, isMarked: false })));
+    }
+    // mark all
+    else {
+      setTasks((prev) => prev.map((task) => ({ ...task, isMarked: true })));
+    }
+  }
+
   console.log(tasks);
   return (
     <div className="p-4">
@@ -72,6 +93,26 @@ function TaskList() {
           />
         ))}
       </ul>
+      {tasks.length > 0 && (
+        <div className="mt-8 flex justify-between items-center">
+          <button
+            onClick={markAllToggle}
+            className={`${
+              isAllMarked()
+                ? "text-yellow-700 dark:text-yellow-500"
+                : "text-green-700 dark:text-green-500"
+            } text-xl cursor-pointer`}
+          >
+            {isAllMarked() ? "Unmark All" : "Mark All"}
+          </button>
+          <button
+            onClick={deleteAll}
+            className="text-red-800 dark:text-red-500 text-xl cursor-pointer"
+          >
+            Delete All
+          </button>
+        </div>
+      )}
     </div>
   );
 }
