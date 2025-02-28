@@ -18,8 +18,8 @@ function App() {
     >
       <ThemeToggle onToggle={handleTheme} theme={theme} />
 
-      <div className=" w-full h-full p-8 relative">
-        <h1 className="text-4xl text-center font-bold mb-8 mt-10 sm:mt-0">
+      <div className=" w-full h-full p-2 sm:p-8 relative">
+        <h1 className="text-4xl text-center font-bold mb-8 mt-20 sm:mt-0">
           TaskList
         </h1>
 

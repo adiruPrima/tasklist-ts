@@ -43,7 +43,7 @@ function TaskCard({
         isMarked
           ? "bg-lime-500/50 line-through"
           : "bg-zinc-400/50 dark:bg-zinc-600/50"
-      } flex justify-between items-center gap-3 py-3 px-5 w-full max-w-[35rem]`}
+      } flex justify-between items-center gap-3 py-3 px-3 sm:px-5 w-full max-w-[35rem]`}
     >
       {editMode && editId === id && !isMarked ? (
         <input
@@ -67,7 +67,7 @@ function TaskCard({
         </span>
       )}
 
-      <div className="flex gap-3">
+      <div className="flex gap-2 sm:gap-3">
         <button
           onClick={() => onEdit(id, newTitle)}
           className="bg-yellow-500 p-1 rounded-lg border cursor-pointer"
