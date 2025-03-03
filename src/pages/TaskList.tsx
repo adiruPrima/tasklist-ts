@@ -1,11 +1,11 @@
 import { useState } from "react";
 import AddTaskInput from "../components/AddTaskInput";
 import TaskCard from "../components/TaskCard";
-// import { usePersistedState } from "../hooks/usePersistedState";
+import { usePersistedState } from "../hooks/usePersistedState";
 import { Task } from "../types/task";
 
 function TaskList() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = usePersistedState<Task[]>("tasks", []);
 
   const [editMode, setEditMode] = useState(false);
   const [taskIdToEdit, setTaskIdToEdit] = useState(0);
@@ -32,6 +32,7 @@ function TaskList() {
 
   function deleteTask(id: number) {
     setTasks((prev) => prev.filter((task) => task.id !== id));
+    window.localStorage.removeItem("tasks");
   }
 
   function deleteAll() {
