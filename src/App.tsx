@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div
-      className={`${theme} h-screen w-screen bg-zinc-200 dark:bg-zinc-900 text-black dark:text-white`}
+      className={`${theme} min-h-screen min-w-screen bg-zinc-200 dark:bg-zinc-900 text-black dark:text-white`}
     >
       <ThemeToggle onToggle={handleTheme} theme={theme} />
 

@@ -23,6 +23,8 @@ function TaskList() {
           isMarked: false,
         },
       ]);
+      // Order based on priority
+      setTasks((prev) => prev.sort((a, b) => b.priority - a.priority));
     } else {
       return;
     }
@@ -47,6 +49,8 @@ function TaskList() {
             : { ...task }
         )
       );
+      // Order based on priority
+      setTasks((prev) => prev.sort((a, b) => b.priority - a.priority));
     } else {
       setEditMode(true);
       setTaskIdToEdit(id);
@@ -81,7 +85,7 @@ function TaskList() {
 
   console.log(tasks);
   return (
-    <div className="p-4">
+    <div className="p-4 mb-16">
       <AddTaskInput onAdd={addTask} />
       <ul className="flex flex-col gap-8 items-center">
         {tasks.map((task) => (
