@@ -5,20 +5,23 @@ import TaskCard from "../components/TaskCard";
 import { Task } from "../types/task";
 
 function TaskList() {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: 1, title: "water plants", isMarked: true },
-    { id: 2, title: "cook breakfast", isMarked: false },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const [editMode, setEditMode] = useState(false);
   const [taskIdToEdit, setTaskIdToEdit] = useState(0);
 
   function addTask(formData: FormData) {
     const task = formData.get("task");
+    const priority = Number(formData.get("priority"));
     if (task) {
       setTasks((prev) => [
         ...prev,
-        { id: Date.now(), title: `${task}`, isMarked: false },
+        {
+          id: Date.now(),
+          title: `${task}`,
+          priority: priority,
+          isMarked: false,
+        },
       ]);
     } else {
       return;
@@ -33,13 +36,15 @@ function TaskList() {
     setTasks([]);
   }
 
-  function editTask(id: number, title: string) {
+  function editTask(id: number, title: string, priority: number) {
     if (editMode) {
       setEditMode(false);
       setTaskIdToEdit(0);
       setTasks((prev) =>
         prev.map((task) =>
-          task.id === id ? { ...task, title: title } : { ...task }
+          task.id === id
+            ? { ...task, title: title, priority: priority }
+            : { ...task }
         )
       );
     } else {
@@ -84,6 +89,7 @@ function TaskList() {
             id={task.id}
             key={task.id}
             title={task.title}
+            priority={task.priority}
             isMarked={task.isMarked}
             toggleMark={toggleMark}
             onDelete={deleteTask}
@@ -94,7 +100,7 @@ function TaskList() {
         ))}
       </ul>
       {tasks.length > 0 && (
-        <div className="mt-8 flex justify-between items-center">
+        <div className="mx-auto mt-8 flex justify-between items-center max-w-[35rem]">
           <button
             onClick={markAllToggle}
             className={`${
